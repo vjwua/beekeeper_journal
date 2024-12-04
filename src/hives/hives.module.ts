@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { HivesController } from './hives.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { HivesService } from './hives.service';
+import { HivesController } from './hives.controller';
+import { Hive } from './hives.entity';
+import { Apiary } from '../apiaries/apiaries.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Hive, Apiary])],
+  providers: [HivesService],
   controllers: [HivesController],
-  providers: [HivesService]
 })
 export class HivesModule {}

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-//import { Apiary } from '../apiaries/apiary.entity';
+import { Apiary } from '../apiaries/apiaries.entity';
 
 @Entity('hives')
 export class Hive {
@@ -15,6 +15,6 @@ export class Hive {
   @Column({ nullable: true })
   status: string;
 
-  //@ManyToOne(() => Apiary, (apiary) => apiary.hives, { onDelete: 'CASCADE' })
-  //apiary: Apiary;
+  @ManyToOne(() => Apiary, (apiary) => apiary.hives, { onDelete: 'CASCADE' })
+  apiary: Apiary;
 }
