@@ -1,33 +1,29 @@
 import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
-export class CreateHiveDto {
-    @IsString()
-    @IsNotEmpty()
-    apiaryId: string;
-
+export class CreateApiaryDto {
     @IsString()
     @IsNotEmpty()
     name: string;
 
     @IsString()
     @IsOptional()
-    type?: string;
+    location?: string;
 
     @IsString()
     @IsOptional()
-    status?: string;
+    description?: string;
 }
 
-export class UpdateHiveDto {
+export class UpdateApiaryDto {
     @IsString()
     @IsOptional()
     name?: string;
 
     @IsString()
     @IsOptional()
-    type?: string;
+    location?: string;
 
     @IsString()
     @IsOptional()
-    status?: string;
+    description?: string;
 }
