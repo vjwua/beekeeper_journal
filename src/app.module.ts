@@ -1,24 +1,26 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { HivesModule } from './hives/hives.module';
+import { ApiariesModule } from './apiaries/apiaries.module';
+import { Hive } from './hives/hives.entity';
+import { Apiary } from './apiaries/apiaries.entity';
+import { Inspection } from './inspections/inspections.entity';
 
 @Module({
   imports: [
     HivesModule,
+    ApiariesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: '617891aA',
       database: 'beekeeperdata',
-      //entities: [User],
-      synchronize: true,
+      entities: [Apiary, Hive, Inspection],
+      synchronize: false,
+      logging: ['query', 'error'],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
