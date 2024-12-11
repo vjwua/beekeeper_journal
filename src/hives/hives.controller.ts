@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Param, Patch, Body } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Param, Patch, Body, Render } from '@nestjs/common';
 import { HivesService } from './hives.service';
 import { CreateHiveDto, UpdateHiveDto } from './dto/create-hive.dto';
 import { Hive } from './hives.entity';
@@ -8,8 +8,10 @@ export class HivesController {
     constructor( private readonly hivesService: HivesService ){}
 
     @Get()
-    findAll(): Promise<Hive[]> {
-        return this.hivesService.findAll();
+    @Render('hives')
+    async getAllHives() {
+        const hives = await this.hivesService.findAll();
+        return { hives };
     }
 
     @Get(':id')

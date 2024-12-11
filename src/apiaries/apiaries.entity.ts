@@ -16,5 +16,5 @@ export class Apiary {
   description: string;
 
   @OneToMany(() => Hive, (hive) => hive.apiary)
-  hives: Hive[];
+  hive: Hive[];
 }

@@ -15,6 +15,6 @@ export class Hive {
   @Column({ nullable: true })
   status: string;
 
-  @ManyToOne(() => Apiary, (apiary) => apiary.hives, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Apiary, (apiary) => apiary.hive, { onDelete: 'CASCADE' })
   apiary: Apiary;
 }

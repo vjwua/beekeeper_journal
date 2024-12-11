@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Param, Patch, Body } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Param, Patch, Body, Render } from '@nestjs/common';
 import { ApiariesService } from './apiaries.service';
 import { CreateApiaryDto, UpdateApiaryDto } from './dto/create-apiary.dto';
 import { Apiary } from './apiaries.entity';
@@ -8,8 +8,10 @@ export class ApiariesController {
     constructor( private readonly apiariesService: ApiariesService ){}
 
     @Get()
-    findAll(): Promise<Apiary[]> {
-        return this.apiariesService.findAll();
+    @Render('apiaries')
+    async getAllApiaries() {
+        const apiaries = await this.apiariesService.findAll();
+        return { apiaries };
     }
 
     @Get(':id')
