@@ -8,15 +8,10 @@ export class HivesController {
     constructor( private readonly hivesService: HivesService ){}
 
     @Get()
-    @Render('hives')
+    @Render('my_hives')
     async getAllHives() {
-        const hives = await this.hivesService.findAll();
-        return { hives };
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<Hive> {
-        return this.hivesService.findOne(id);
+        const my_hives = await this.hivesService.findAll();
+        return { my_hives };
     }
 
     @Post()
@@ -32,5 +27,10 @@ export class HivesController {
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
         return this.hivesService.remove(id);
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: string): Promise<Hive> {
+        return this.hivesService.findOne(id);
     }
 }

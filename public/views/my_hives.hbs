@@ -12,15 +12,25 @@
         <thead class="table-primary">
             <th>Name:</th>
             <th>Apiary:</th>
+            <th>Actions:</th>
         </thead>
         {{#each hives}}
         <tbody>
             <td>{{this.name}}</td>
             <td>{{this.apiary.name}}</td>
+            <td>
+              <a href="/hives/{{this.id}}/edit_hive" class="btn btn-success">Edit</a>
+              <a href="/hives/{{this.id}}/delete_hive" class="btn btn-danger ms-1">Delete</a>
+            </td>
         </tbody>
         {{/each}}
     </table>
+    <div class="form-floating mb-3">
+    <a href="/hives/create_hive" class="text-center text-primary mb-0">Create new hive</a>
+    </div>
+    <div class="form-floating mb-3">
     <a class="text-center text-primary mb-0" href="./apiaries">Come to the apiaries</a>
+    </div>
     </div>
     </div>
     </section>

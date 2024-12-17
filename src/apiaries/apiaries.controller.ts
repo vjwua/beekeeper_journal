@@ -1,36 +1,63 @@
-import { Controller, Delete, Get, Post, Param, Patch, Body, Render } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Param, Patch, Body, Render, Res } from '@nestjs/common';
 import { ApiariesService } from './apiaries.service';
 import { CreateApiaryDto, UpdateApiaryDto } from './dto/create-apiary.dto';
 import { Apiary } from './apiaries.entity';
-
+import { Response } from 'express';
+  
 @Controller('apiaries')
 export class ApiariesController {
-    constructor( private readonly apiariesService: ApiariesService ){}
+  constructor(private readonly apiariesService: ApiariesService) {}
 
-    @Get()
-    @Render('apiaries')
-    async getAllApiaries() {
-        const apiaries = await this.apiariesService.findAll();
-        return { apiaries };
-    }
+  @Get()
+  @Render('my_apiaries')
+  async getApiaryListPage() {
+    const my_apiaries = await this.apiariesService.getAllApiaries();
+    return { my_apiaries };
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<Apiary> {
-        return this.apiariesService.findOne(id);
-    }
+  @Get('/create_apiary')
+  @Render('create_apiary') 
+  async getApiaryCreatePage() {
+    return {}; 
+  }
 
-    @Post()
-    create(@Body() createHiveDto: CreateApiaryDto): Promise<Apiary> {
-        return this.apiariesService.create(createHiveDto);
-    }
+  @Post('/create_apiary')
+  async createApiary(
+    @Body() createApiaryDto: CreateApiaryDto,
+    @Res() res: Response,
+  ) {
+    await this.apiariesService.createApiary(createApiaryDto);
+    return res.redirect('/apiaries');
+  }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateHiveDto: UpdateApiaryDto): Promise<Apiary> {
-        return this.apiariesService.update(id, updateHiveDto);
-    }
+  @Get('/:id/update_apiary')
+  @Render('update_apiary') 
+  async getApiaryUpdatePage(@Param('id') id: string) {
+    const apiary = await this.apiariesService.getApiaryById(id);
+    return { apiary };
+  }
 
-    @Delete(':id')
-    remove(@Param('id') id: string): Promise<void> {
-        return this.apiariesService.remove(id);
-    }
+  @Post('/:id/update_apiary')
+  async updateApiary(
+    @Param('id') id: string,
+    @Body() updateApiaryDto: UpdateApiaryDto,
+    @Res() res: Response,
+  ) {
+    await this.apiariesService.updateApiary(id, updateApiaryDto);
+    return res.redirect('/apiaries');
+  }
+
+  @Get(':id/delete_apiary')
+  async removeApiary(
+      @Param('id') id: string, 
+      @Res() res: Response,
+  ) {
+    await this.apiariesService.removeApiary(id);
+    return res.redirect('/apiaries');
+  }
+
+  @Get(':id')
+  getApiaryById(@Param('id') id: string): Promise<Apiary> {
+    return this.apiariesService.getApiaryById(id);
+  }
 }

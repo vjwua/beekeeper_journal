@@ -14,34 +14,34 @@ export class ApiariesService {
     private readonly hiveRepository: Repository<Hive>,
   ) {}
 
-  async findAll(): Promise<Apiary[]> {
+  async getAllApiaries(): Promise<Apiary[]> {
     return this.apiariesRepository.find({ relations: ['hive'] });
   }
 
-  async findOne(id: string): Promise<Apiary> {
-    const apiary = await this.apiariesRepository.findOne({ where: { id }, relations: ['hive'] });
-    if (!apiary) throw new NotFoundException(`Apiary with ID "${id}" not found`);
+  async getApiaryById(id: string): Promise<Apiary> {
+    const apiary = await this.apiariesRepository.findOne({
+      where: { id },
+      relations: ['hive'],
+    });
+    if (!apiary) {
+      throw new NotFoundException(`Apiary with ID "${id}" not found`);
+    }
     return apiary;
   }
 
-  async create(createApiaryDto: CreateApiaryDto): Promise<Apiary> {
-    const { name, ...rest } = createApiaryDto;
-
-    const hive = await this.hiveRepository.findOne({ where: { id: name } });
-    if (!hive) throw new NotFoundException(`Apiary "${name}" not found`);
-
-    const apiary = this.apiariesRepository.create({ ...rest, name });
+  async createApiary(createApiaryDto: CreateApiaryDto): Promise<Apiary> {
+    const apiary = this.apiariesRepository.create(createApiaryDto);
     return this.apiariesRepository.save(apiary);
   }
-
-  async update(id: string, updateApiaryDto: UpdateApiaryDto): Promise<Apiary> {
-    const apiary = await this.findOne(id);
+  
+  async updateApiary(id: string, updateApiaryDto: UpdateApiaryDto): Promise<Apiary> {
+    const apiary = await this.getApiaryById(id);
     Object.assign(apiary, updateApiaryDto);
     return this.apiariesRepository.save(apiary);
   }
-
-  async remove(id: string): Promise<void> {
-    const apiary = await this.findOne(id);
+  
+  async removeApiary(id: string): Promise<void> {
+    const apiary = await this.getApiaryById(id);
     await this.apiariesRepository.remove(apiary);
-  }
+  }  
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Apiaries</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <section>
+    <div class="row justify-content-center">   
+        <div class="container col-md-8 col-lg-8">
+    <h2 class="page-section-heading text-center text-primary mb-0">Apiaries</h2>
+    <table class="table table-light">
+        <thead class="table-primary">
+            <th>Name:</th>
+            <th>Location:</th>
+            <th>Description:</th>
+            <th>Actions:</th>
+        </thead>
+        {{#each my_apiaries}}
+        <tbody>
+            <td>{{this.name}}</td>
+            <td>{{this.location}}</td>
+            <td>{{this.description}}</td>
+            <td>
+              <a href="/apiaries/{{this.id}}/update_apiary" class="btn btn-success">Edit</a>
+              <a href="/apiaries/{{this.id}}/delete_apiary" class="btn btn-danger ms-1">Delete</a>
+            </td>
+        </tbody>
+        {{/each}}
+    </table>
+    <div class="form-floating mb-3">
+    <a href="/apiaries/create_apiary" class="text-center text-primary mb-0">Create new apiary</a>
+    </div>
+    <div class="form-floating mb-3">
+    <a class="text-center text-primary mb-0" href="/hives">Come to the hives</a>
+    </div>
+    </div>
+    </div>
+    </section>
+  </body>
+</html>

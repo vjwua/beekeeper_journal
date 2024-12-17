@@ -6,35 +6,38 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h2 class="page-section-heading text-center text-primary mb-0">Create apiary</h2>
+    <h2 class="page-section-heading text-center text-primary mb-0">Edit apiary</h2>
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
     </div>
-    <form action="/apiaries/create_apiary" method="POST" class="mt-4">
+    <form action="/apiaries/{{apiary.id}}/update_apiary" method="POST" class="mt-4">
+      <label for="title" class="form-label underline">Enter the apiary's new name:</label>
       <input 
         type="text" 
-        id="name" 
-        name="name" 
+        id="title" 
+        name="title" 
         class="form-control bg-dark text-success border-0" 
-        placeholder="Name the apiary" 
+        value="{{apiary.name}}" 
         required>
       <br><br>      
+      <label for="title" class="form-label underline">Enter the apiary's new location:</label>
       <input 
         type="text" 
-        id="location" 
-        name="location" 
+        id="title" 
+        name="title" 
         class="form-control bg-dark text-success border-0" 
-        placeholder="Put the location code" 
+        value="{{apiary.location}}" 
         required>
-      <br><br>   
+      <br><br>     
+      <label for="description" class="form-label underline">Enter the task's new description:</label>
       <input 
         type="text" 
         id="description" 
         name="description" 
         class="form-control bg-dark text-success border-0" 
-        placeholder="Describe the apiary" 
+        value="{{apiary.description}}" 
         required>
       <br><br>
       <button type="submit" class="btn btn-primary btn-xl">Submit</button>
