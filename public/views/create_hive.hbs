@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="page-section-heading text-center text-primary mb-0">Create hive</h2>
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+    <form action="/hives/create_hive" method="POST" class="mt-4">
+      <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        class="form-control bg-dark text-success border-0" 
+        placeholder="Name the hive" 
+        required>
+      <br><br>      
+      <select 
+        id="apiaryId"
+        name="apiaryId" 
+        class="form-control bg-dark text-success border-0" 
+        required>
+        <option value="" disabled selected>Select an apiary</option>
+        {{#each apiaries}}
+          <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+      <br><br>
+      <button type="submit" class="btn btn-primary btn-xl">Submit</button>
+      <a href="/hives" class="btn btn-primary btn-xl">Return back</a>
+  </div>
+</body>
+</html>

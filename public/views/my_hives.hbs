@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Hives</title>
@@ -12,14 +13,18 @@
         <thead class="table-primary">
             <th>Name:</th>
             <th>Apiary:</th>
+            <th>Type:</th>
+            <th>Status:</th>
             <th>Actions:</th>
         </thead>
-        {{#each hives}}
+        {{#each my_hives}}
         <tbody>
             <td>{{this.name}}</td>
+            <td>{{this.type}}</td>
+            <td>{{this.status}}</td>
             <td>{{this.apiary.name}}</td>
             <td>
-              <a href="/hives/{{this.id}}/edit_hive" class="btn btn-success">Edit</a>
+              <a href="/hives/{{this.id}}/update_hive" class="btn btn-success">Edit</a>
               <a href="/hives/{{this.id}}/delete_hive" class="btn btn-danger ms-1">Delete</a>
             </td>
         </tbody>

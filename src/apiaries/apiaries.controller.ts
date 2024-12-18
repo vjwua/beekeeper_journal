@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Param, Patch, Body, Render, Res } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Param, Body, Render, Res } from '@nestjs/common';
 import { ApiariesService } from './apiaries.service';
 import { CreateApiaryDto, UpdateApiaryDto } from './dto/create-apiary.dto';
 import { Apiary } from './apiaries.entity';

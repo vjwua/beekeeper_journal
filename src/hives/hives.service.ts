@@ -14,17 +14,22 @@ export class HivesService {
     private readonly apiaryRepository: Repository<Apiary>,
   ) {}
 
-  async findAll(): Promise<Hive[]> {
+  async getAllHives(): Promise<Hive[]> {
     return this.hivesRepository.find({ relations: ['apiary'] });
   }
 
-  async findOne(id: string): Promise<Hive> {
-    const hive = await this.hivesRepository.findOne({ where: { id }, relations: ['apiary'] });
-    if (!hive) throw new NotFoundException(`Hive with ID "${id}" not found`);
+  async getHiveById(id: string): Promise<Hive> {
+    const hive = await this.hivesRepository.findOne({ 
+      where: { id }, 
+      relations: ['apiary'] 
+    });
+    if (!hive) {
+      throw new NotFoundException(`Hive with ID "${id}" not found`);
+    }
     return hive;
   }
 
-  async create(createHiveDto: CreateHiveDto): Promise<Hive> {
+  async createHive(createHiveDto: CreateHiveDto): Promise<Hive> {
     const { apiaryId, ...rest } = createHiveDto;
 
     const apiary = await this.apiaryRepository.findOne({ where: { id: apiaryId } });
@@ -34,14 +39,14 @@ export class HivesService {
     return this.hivesRepository.save(hive);
   }
 
-  async update(id: string, updateHiveDto: UpdateHiveDto): Promise<Hive> {
-    const hive = await this.findOne(id);
+  async updateHive(id: string, updateHiveDto: UpdateHiveDto): Promise<Hive> {
+    const hive = await this.getHiveById(id);
     Object.assign(hive, updateHiveDto);
     return this.hivesRepository.save(hive);
   }
 
-  async remove(id: string): Promise<void> {
-    const hive = await this.findOne(id);
+  async removeHive(id: string): Promise<void> {
+    const hive = await this.getHiveById(id);
     await this.hivesRepository.remove(hive);
   }
 }
